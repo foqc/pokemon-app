@@ -5,7 +5,7 @@ import type {
 } from "../../entities/pokemon";
 import type { AxiosResponse } from "axios";
 
-const API = "https://pokeapi.co/api/v2";
+const API = import.meta.env.VITE_API_URL || "https://pokeapi.co/api/v2";
 
 export const pokemonClient = {
   list: (offset: number, limit: number): Promise<PokemonListResponse> => {
