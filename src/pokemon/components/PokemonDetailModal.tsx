@@ -43,7 +43,7 @@ export const PokemonDetailModal = ({ nameOrId, open, onOpenChange }: Props) => {
               <section>
                 <h3 className="mb-1 font-medium">Abilities</h3>
                 <ul className="list-inside list-disc text-sm">
-                  {data.abilities.map((a: any) => (
+                  {data.abilities.map((a) => (
                     <li key={a.ability.name} className="capitalize">
                       {a.ability.name}
                       {a.is_hidden ? " (hidden)" : ""}
@@ -56,7 +56,7 @@ export const PokemonDetailModal = ({ nameOrId, open, onOpenChange }: Props) => {
                 <h3 className="mb-1 font-medium">Forms</h3>
                 {data.forms.length ? (
                   <ul className="list-inside list-disc text-sm">
-                    {data.forms.map((f: any) => (
+                    {data.forms.map((f) => (
                       <li key={f.name} className="capitalize">
                         {f.name}
                       </li>
@@ -71,7 +71,7 @@ export const PokemonDetailModal = ({ nameOrId, open, onOpenChange }: Props) => {
                 <h3 className="mb-1 font-medium">Moves</h3>
                 <div className="max-h-48 overflow-auto rounded border p-2 text-sm">
                   <ul className="columns-2 gap-4 sm:columns-3">
-                    {data.moves.map((m: any) => (
+                    {data.moves.map((m) => (
                       <li
                         key={m.move.name}
                         className="break-inside-avoid capitalize"
