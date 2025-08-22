@@ -131,74 +131,6 @@ A responsive web application that lets users authenticate locally and browse Pok
 
 **Final UI library choice for v1:** **shadcn/ui + Tailwind** (great DX, accessible components, flexible design). MUI can be swapped later with an adapter interface if needed.
 
-### 7.2 Folder Structure (Feature-Sliced + Clean-ish)
-
-```
-pokemon-finder/
-├─ docs/
-│  └─ PRD.md
-├─ src/
-│  ├─ app/                # App shell, providers, router
-│  │  ├─ providers/
-│  │  │  ├─ QueryProvider.tsx
-│  │  │  └─ ThemeProvider.tsx
-│  │  ├─ router/
-│  │  │  └─ index.tsx
-│  │  └─ App.tsx
-│  ├─ features/
-│  │  ├─ auth/
-│  │  │  ├─ components/
-│  │  │  │  └─ LoginForm.tsx
-│  │  │  ├─ hooks/
-│  │  │  │  └─ useAuth.ts
-│  │  │  └─ services/
-│  │  │     └─ authService.ts
-│  │  └─ pokemon/
-│  │     ├─ components/
-│  │     │  ├─ PokemonCard.tsx
-│  │     │  ├─ PokemonList.tsx
-│  │     │  └─ PokemonDetailModal.tsx
-│  │     ├─ hooks/
-│  │     │  ├─ usePokemonList.ts
-│  │     │  └─ usePokemonDetail.ts
-│  │     └─ services/
-│  │        └─ pokemonClient.ts
-│  ├─ entities/
-│  │  └─ pokemon.ts       # types/zod schemas for API entities
-│  ├─ pages/
-│  │  ├─ LoginPage.tsx
-│  │  └─ HomePage.tsx
-│  ├─ shared/
-│  │  ├─ components/
-│  │  │  ├─ SearchInput.tsx
-│  │  │  ├─ Pagination.tsx
-│  │  │  └─ UiPrimitives.tsx
-│  │  ├─ hooks/
-│  │  │  └─ useLocalStorage.ts
-│  │  ├─ libs/
-│  │  │  ├─ http.ts       # fetch wrapper
-│  │  │  ├─ store.ts      # Zustand store(s)
-│  │  │  └─ query.ts      # query keys/helpers
-│  │  ├─ styles/
-│  │  │  └─ index.css
-│  │  └─ utils/
-│  │     └─ format.ts
-│  ├─ index.css
-│  ├─ main.tsx
-│  └─ vite-env.d.ts
-├─ .husky/
-├─ public/
-├─ tests/
-│  ├─ e2e/
-│  └─ unit/
-├─ .eslint.cjs
-├─ .prettierrc
-├─ vitest.config.ts
-├─ playwright.config.ts (optional)
-├─ package.json
-└─ README.md
-```
-
 ### 7.3 API & Data Contracts
 
 * **List endpoint:** `GET https://pokeapi.co/api/v2/pokemon?offset={number}&limit={number}`
@@ -236,21 +168,6 @@ pokemon-finder/
 * Buttons have accessible names; images have `alt` text (pokemon name).
 * Maintain tab order and keyboard shortcuts (ESC to close modal).
 
-### 7.8 Observability (Optional, Dev Only)
-
-* Simple logger utility with log levels.
-* DevTools for TanStack Query and Zustand (dev only).
-
-### 7.9 Security & Privacy
-
-* No actual PII storage beyond a boolean token. Avoid storing raw creds anywhere.
-* Use `SameSite` and secure cookies if swapping storage in the future.
-* Handle network errors gracefully; no secrets in client.
-
-### 7.10 Internationalization (Optional)
-
-* i18n scaffold with `react-i18next`; default `en`.
-
 ## 8) Acceptance Criteria
 
 * Given any incorrect login creds, the app shows validation and blocks access.
@@ -260,17 +177,3 @@ pokemon-finder/
 * Clicking an item opens a modal with abilities, moves (scroll/virtualized), and forms.
 * Refreshing the page keeps the user logged in until logout.
 * Linting/formatting pass; tests run; build succeeds.
-
-## 9) Risks & Mitigations
-
-* **PokéAPI rate limits / latency:** enable query caching, backoff retries, and modest concurrency; add status messaging.
-* **Large move lists causing jank:** virtualize long content or paginate within the modal.
-* **Unauth state drift:** centralize auth via Zustand + storage sync, use route guards.
-
-## 10) Project Plan & Milestones
-
-* **M1 – Scaffolding & Tooling (Day 0–0.5):** Vite + TS, Tailwind, shadcn/ui, ESLint/Prettier, Husky, Vitest.
-* **M2 – Auth (Day 0.5–1):** Login page, local validation, storage, guards.
-* **M3 – Pokémon List (Day 1–1.5):** Query list + pagination + search; cards with sprite/name; loading & error states.
-* **M4 – Detail Modal (Day 1.5–2):** Lazy fetch details; abilities, moves, forms; accessibility polish.
-* **M5 – Tests & Docs (Day 2):** Unit/integration tests; README; final QA.
